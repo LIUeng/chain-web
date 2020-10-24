@@ -3,32 +3,10 @@
     <div class="chain-wrap chain-margin chain-box-shadow">
       <div class="chain-title chain-title-before">概览</div>
       <div class="chain-overview-content">
-        <div class="chain-overview-item">
-          <div class="chain-overview-item-title">区块高度</div>
-          <div class="chain-overview-item-meta">{{ overview.height || 0 }}</div>
-        </div>
-        <div class="chain-overview-item">
-          <div class="chain-overview-item-title">总数据量</div>
+        <div class="chain-overview-item" v-for="item in overviewEnum" :key="item.title">
+          <div class="chain-overview-item-title">{{ item.title }}</div>
           <div class="chain-overview-item-meta">
-            {{ overview.total_tx_num || 0 }}
-          </div>
-        </div>
-        <div class="chain-overview-item">
-          <div class="chain-overview-item-title">实时节点数</div>
-          <div class="chain-overview-item-meta">
-            {{ overview.online_node_num || 0 }}
-          </div>
-        </div>
-        <div class="chain-overview-item">
-          <div class="chain-overview-item-title">共识节点数</div>
-          <div class="chain-overview-item-meta">
-            {{ overview.consensus_node_num || 0 }}
-          </div>
-        </div>
-        <div class="chain-overview-item">
-          <div class="chain-overview-item-title">同步节点数</div>
-          <div class="chain-overview-item-meta">
-            {{ overview.syn_node_num || 0 }}
+            {{ overview[item.field] || 0 }}
           </div>
         </div>
       </div>
@@ -41,14 +19,12 @@
         <div class="chain-block-content">
           <div class="chain-block-list">
             <transition-group
-              appear
               tag="div"
-              name="block-list"
-              move-class="block-list-move"
+              name="chain-block-list"
             >
               <animate-item
-                v-for="(item, idx) in blocks"
-                :key="item.height || idx"
+                v-for="item in blocks"
+                :key="item.height"
                 :row="item"
               ></animate-item>
             </transition-group>
@@ -68,7 +44,7 @@
         <el-table-column prop="key" label="键值"> </el-table-column>
         <el-table-column prop="user_id" label="用户ID"></el-table-column>
         <el-table-column prop="user_ip" label="用户IP"></el-table-column>
-        <el-table-column prop="operate" label="数据">
+        <el-table-column prop="operate" label="数据" width="80">
           <template slot-scope="{ row }">
             <modal-search>
               <template slot-scope="{ open }">
@@ -97,6 +73,28 @@ export default {
       overview: {},
       blocks: [],
       datas: [],
+      overviewEnum: [
+        {
+          title: '区块高度',
+          field: 'height',
+        },
+        {
+          title: '总数据量',
+          field: 'total_tx_num',
+        },
+        {
+          title: '实时节点数',
+          field: 'online_node_num',
+        },
+        {
+          title: '共识节点数',
+          field: 'consensus_node_num',
+        },
+        {
+          title: '同步节点数',
+          field: 'syn_node_num',
+        },
+      ],
       // timerId: null,
     };
   },
@@ -208,16 +206,16 @@ export default {
     &-list
       width: 150%
 
-.block-list
+.chain-block-list
   &-enter-active, &-leave-active
-    transition: all 1s
+    transition: all .5s
 
   &-enter, &-leave-to
     opacity: 0
     transform: scale(.01)
 
   &-move
-    transition: all 1s
+    transition: all .5s
 
 .view-link
   cursor: pointer

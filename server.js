@@ -36,28 +36,47 @@ app.get('/api/overview', function overview(req, res) {
 var uqId = 1;
 setInterval(() => {
   uqId++;
+}, 1000);
+
+var count_idx = 10;
+const fixBlocks = generateBlocks();
+
+setInterval(() => {
+  const now = Date.now();
+  fixBlocks.splice(0, 0, {
+    time: now + uqId,
+    tx_num: 1,
+    // height: uqId++,
+    height: count_idx++,
+  });
+  fixBlocks.splice(5, 1);
 }, 5000);
+
+function getBlocks() {
+  return fixBlocks;
+}
+
 function generateBlocks() {
+  var timestamp = new Date().valueOf();
   const blocks = [];
   var i,
     count = 5;
-  var timestamp = new Date().valueOf();
   for (i = 0; i < count; i++) {
     var r100 = Math.floor(Math.random() * 100);
     blocks.push({
-      time: timestamp,
+      time: timestamp + uqId,
       tx_num: r100,
-      height: uqId + i,
+      height: i,
     });
   }
-  // return blocks;
-  return blocks.reverse();
+  return blocks;
+  // return blocks.reverse();
 }
 
 // 区块 最新生成
 // request method GET
 app.get('/api/block', function block(req, res) {
-  const result = generateBlocks();
+  const result = getBlocks();
   return res.send({
     code: 200,
     success: true,

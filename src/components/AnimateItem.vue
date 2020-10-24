@@ -29,10 +29,10 @@ export default {
     genTxt(time) {
       let diff = time && Math.abs(time - new Date().valueOf()) || 0;
       // console.log(diff);
-      if(diff < 60) {
+      if(diff / 1000 > 60) {
         return diff + ' s';
       }
-      let ceil = Math.ceil(diff / 60);
+      let ceil = Math.ceil(diff / (60 * 1000));
       return ceil + ' min';
     },
   },
