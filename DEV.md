@@ -1,6 +1,6 @@
 # 关于项目
 
-[toc]
+<!-- [toc] -->
 
 > 用到的技术
 
@@ -10,10 +10,10 @@
 
 [vue3.0 版本](https://v3.vuejs.org/api/) [vuex vue 状态管理]()
 
-## 目录
+## 文件结构
 
-.
-├── public 开发模式静态文件服务器指向
+<!-- --- -->
+<!-- ├── public 开发模式静态文件服务器指向
 │   ├── favicon.ico
 │   └── index.html
 ├── src 开发目录
@@ -29,9 +29,26 @@
 ├── package.json 项目脚本以及依赖
 ├── server.js mock 文件（Nodejs + express)
 ├── toc.md 目录结构
-└── vue.config.js 项目配置文件
+└── vue.config.js 项目配置文件 -->
 
-5 directories, 21 files
+- public 开发模式静态文件服务器指向
+- src 开发目录
+  - assets 放一些全局资源文件（图片 CSS JS）
+  - components 自己封装的一些组件，以便复用
+  - utils 工具函数
+    - request Http 请求封装（需要改动 http 请求方式，请求头，请求体可以在这修改，或者直接写过封装）
+    - ...
+  - app.scss 全局样式（命名随便，不一定放在这里目录）
+  - App.vue 用一个 Vue 文件，作为 Vue 的入口文件，这里不是项目的入口文件
+  - main.js 项目的入口文件
+  - routes.js 配置路由（使用的是 vue-router）
+  - xxx.vue 组件页面
+- gitignore git 忽略上传文件
+- .prettierrc 可以安装插件 prettier（vscode）格式化代码插件
+- .babel.config.js babel 配置文件
+- package.json 项目脚本以及依赖
+- server.js mock 文件（Nodejs + express)
+- vue.config.js 项目配置文件
 
 ## 开发
 
