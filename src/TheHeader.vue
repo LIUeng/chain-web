@@ -52,6 +52,13 @@ export default {
       pathname: location.pathname,
     };
   },
+  watch: {
+    $route(to, from) {
+      if (to.path !== from.path) {
+        this.pathname = to.path;
+      }
+    },
+  },
   methods: {
     search(open) {
       if (this.inputValue) {

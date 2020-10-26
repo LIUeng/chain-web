@@ -123,15 +123,18 @@ export default {
         this.blocks = res.data || [];
       });
     },
-  },
-  created() {
-    this.getDatas();
-    this.getBlocks();
-    this.getOverview();
-    window.timerId = setInterval(() => {
+
+    // init
+    loop() {
       this.getDatas();
       this.getBlocks();
       this.getOverview();
+    },
+  },
+  created() {
+    this.loop();
+    window.timerId = setInterval(() => {
+      this.loop();
     }, 1000);
   },
   mounted() {
